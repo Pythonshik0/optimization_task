@@ -137,35 +137,36 @@
 
                 <input id="chat-task-submit" class="button_create_task" type="button" value="Отправить">
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          </div>
+          <!--Просмотр задач для usera и просмотр сообщений к этим задачам    -->
+        <div class="tasks_container_user">
+            <div class="tasks_for_user_websocket_container">
+                <div class="container_main_tasks">
+                    <div class="tasks_in_user_container">
+                        <div id="tasks_in_user_list">
 
-                <!--Просмотр задач для usera и просмотр сообщений к этим задачам    -->
-                <div class="tasks_container_user">
-                    <div class="tasks_for_user_websocket_container">
-                        <div class="container_main_tasks">
-                            <div class="tasks_in_user_container">
-                                <div id="tasks_in_user_list">
-
-                                </div>
-                            </div>
-                            <div class="tasks_full_dec_container">
-                                <div id="tasks_full_dec">
-
-                                </div>
-                            </div>
                         </div>
-                        <div class="main_message_block_in_tasks_container">
-                            <div id="message_container_web">
+                    </div>
+                    <div class="tasks_full_dec_container">
+                        <div id="tasks_full_dec">
 
-                            </div>
-                            <div class="create_messages_for_task">
-                                <textarea id="chat-task-input-message" class="custom-input" placeholder="Введите текст..."></textarea>
-                                <input id="chat-task-submit-message" class="button_create_task" type="button" value="Отправить">
-                            </div>
                         </div>
                     </div>
                 </div>
-          </div>
+                <div class="main_message_block_in_tasks_container">
+                    <div id="message_container_web">
+
+                    </div>
+                    <div class="create_messages_for_task">
+                        <textarea id="chat-task-input-message" class="custom-input" placeholder="Введите текст..."></textarea>
+                        <input id="chat-task-submit-message" class="button_create_task" type="button" value="Отправить">
+                    </div>
+                </div>
+            </div>
+        </div>
+
       </div>
+
         <!-- AJAX Запрос на отображение полных данных задачи на которую мы нажали в центральном меню               -->
         {{ task_full|json_script:"task-full" }}
         {{ user_id_gave_the_task_full|json_script:"user-id-gave-the-task-full" }}

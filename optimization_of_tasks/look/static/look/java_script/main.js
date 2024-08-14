@@ -328,15 +328,21 @@ function openCity(event, cityName) {
 
 function openCityMain(event, cityName) {
     if (cityName === 'Task_me') {
-            // Скрываем окно Tasks_for_me
-            document.getElementById('Tasks_for_me').style.display = 'none';
-            // Показываем окно создания задачи
-            document.getElementById('create_task_modal').style.display = 'block';
-            document.getElementById('main_message_block_and_create_message-block').style.display = "none";
-        }
-        document.getElementById(cityName).style.display = "block";
-        event.currentTarget.className += " active"; //evt
+        // Скрываем окно Tasks_for_me
+        document.getElementById('Tasks_for_me').style.display = 'none';
+        // Показываем окно создания задачи
+        document.getElementById('create_task_modal').style.display = 'flex'; // Используем flex для отображения
+        document.getElementById('main_message_block_and_create_message-block').style.display = "none";
+    } else {
+        document.getElementById('create_task_modal').style.display = 'none'; // Скрываем блок если другой cityName
     }
+
+    // Показываем соответствующий блок по имени cityName
+    document.getElementById(cityName).style.display = "block";
+
+    // Обновляем класс активного элемента
+    event.currentTarget.className += " active"; // Добавляем класс активного элемента
+}
 
 // ФУНКЦИЯ ЗАМЕНЫ СТАТУСОВ ДЛЯ ЗАДАЧИ В БЛОКЕ СООБЩЕНИЙ И ПОЛНОГО ОПИСАНИЯ ЗАДАЧИ
 // Далее функция должна делать ajax запрос для изменения статуса задачи

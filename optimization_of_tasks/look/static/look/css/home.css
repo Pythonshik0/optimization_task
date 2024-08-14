@@ -1188,22 +1188,23 @@ a.tablinks, a.button_task {
 
 /*___________________________МОДУЛЬ СОЗДАНИЯ ЗАДАЧИ____________________________________________-*/
 #create_task_modal {
+    display: flex; /* Используем Flexbox для размещения элементов в строку */
+    justify-content: space-between; /* Распределяем пространство между элементами */
+    align-items: flex-start; /* Выравниваем элементы по верхнему краю */
+    gap: 10px; /* Отступ между блоками */
     font-size: 16px;
-    display: none;
     margin-top: 70px;
-    float: left; /* Делаем tabcontent плавающим вправо */
-    max-width: 30%; /* Задаем ширину, например, 75% от родительского контейнера */
-    position: relative; /* Позволяет задать отступ слева */
-    margin-left: 1%;
-    margin-bottom: 10px;
-    color: black;
+    max-width: 100%; /* Убедитесь, что контейнер не выходит за пределы экрана */
     border-radius: 5px;
     border: 1px solid #b4b4b4;
+    box-sizing: border-box; /* Учитываем отступы и границы в ширине контейнера */
 }
 .create_task_modal_container {
-    box-sizing: border-box; /* Учитывает отступы и границы */
-    width: 100%; /* Убедитесь, что контейнер занимает всю ширину родительского элемента */
+    flex: 1; /* Заставляет элемент занимать всё доступное пространство */
+    max-width: 60%; /* Можно регулировать ширину по вашему усмотрению */
+    box-sizing: border-box; /* Учитывает отступы и границы в ширине контейнера */
 }
+
 .create_tasks_info_container {
     display: flex;
     align-items: center; /* Выравнивание по вертикали */
@@ -1242,6 +1243,13 @@ a.tablinks, a.button_task {
     margin-right: 10px;
     border-radius: 5px; /* Скругление углов полоски */
 }
+.FIO_users_main {
+    text-decoration: none;
+    cursor: pointer;
+    color: #363636;
+    padding-left: 10px;
+}
+
 /*ПОЛЕ ПОИСКА*/
 #searchInput {
     /*margin: 10px 10px 3px 10px;*/
@@ -1258,4 +1266,18 @@ a.tablinks, a.button_task {
 #searchInput:focus {
     border-color: #1e6397; /* Изменение цвета границы при фокусе */
     box-shadow: 0 0 2px #1e6397; /* Тень при фокусе */
+}
+
+/*______________БЛОК С ЗАДАЧИ ПОЛЬЗОВАТЕЛЯ НА КОТОРОГО НАЖАЛИ И ЕГО СООБЩЕНИЯ______________*/
+.tasks_container_user {
+    position: relative; /* Позволяет задать отступ слева */
+    height: 100%; /* Высота меню */
+    background-color: #212121; /* Цвет фона */
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(133, 13, 206); /* Добавляем тень */
+    font-size: 16px;
+    color: azure;
+    flex: 1; /* Заставляет элемент занимать всё доступное пространство */
+    max-width: 40%; /* Можно регулировать ширину по вашему усмотрению */
+    box-sizing: border-box; /* Учитывает отступы и границы в ширине контейнера */
 }

@@ -275,7 +275,7 @@ a.tablinks, a.button_task {
 .FIO_users_main {
     text-decoration: none;
     cursor: pointer;
-    color: azure;
+    color: #2a2a2a;
     padding-left: 10px;
 }
 .selected_row {
