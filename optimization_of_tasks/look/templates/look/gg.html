@@ -1,0 +1,321 @@
+{% extends "look/main.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+  <div class="main_container_appiclation">
+    <header>
+      <div class="the_main_header_of_the_application_is_on_top">
+        <div class="main_container_header">
+
+          <div class="logo_container">
+            <div class="logo">ADD TASK</div>
+          </div>
+          <div class="info_for_user_container">
+            <div class="info_FIO">Александр</div>
+            <div class="info_images"><img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_right"></div>
+          </div>
+
+        </div>
+      </div>
+    </header>
+    <div class="main_menu_container">
+      <a class="tablinks" onclick="openCity(event, 'Tasks_for_me')">
+        <div class="menu_item">
+            <img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_main">
+            Выдали мне
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCityMain(event, 'Task_me')">
+        <div class="menu_item">
+            <img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_main">
+            Выдал я
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCity(event, '')">
+        <div class="menu_item">
+            <img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_main">
+            Обсуждение
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCity(event, '')">
+        <div class="menu_item">
+            <img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_main">
+            Общие группы
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCity(event, '')">
+        <div class="menu_item">
+            <img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_main">
+            Информация
+        </div>
+      </a>
+      <a class="tablinks_exit" onclick="openCity(event, '')">
+        <div class="menu_item_exit">
+            <img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_main">
+            Выйти
+        </div>
+      </a>
+    </div>
+      <div id="Tasks_for_me" class="tabcontent" style="display:none;">
+        <div class="tasks_info_container">
+            <div class="tasks_info_text">Описание:</div>
+            <div class="tasks_info_status">Статус:</div>
+        </div>
+          <div id="tasks-list">
+          {% for task in room_my_task %}
+                <a class="button_task" onclick="handleRowClick('{{ task.id }}')">
+                    <div class="task_text">{{ task.task }} </div>
+                    <div class="status_task">{{ task.status_task }}</div>
+                </a>
+          {% endfor %}
+              <div id="add_task_websocket">
+                  <div id="task_websocket">
+
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div id="create_task_modal">
+          <div class="create_task_modal_container">
+              <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="Введите данные">
+              <script>
+                   function searchUsers() {
+                       // Получаем значение из поля ввода
+                       var input = document.getElementById('searchInput').value.toUpperCase();
+                       var users = document.getElementsByClassName('FIO_users_main');
+
+                       // Перебираем всех пользователей и скрываем тех, у кого нет совпадений
+                       for (var i = 0; i < users.length; i++) {
+                           var username = users[i].textContent.toUpperCase();
+                           if (username.indexOf(input) > -1) {
+                               users[i].parentNode.style.display = '';
+                           } else {
+                               users[i].parentNode.style.display = 'none';
+                           }
+                       }
+                   }
+              </script>  <!--<<====  ФИЛЬТРАЦИЯ ПОЛЬЗОВАТЕЛЕЙ   -->
+              <div id="Users" class="tabcontent_user">
+                <div class="tasks_info_container">
+                    <div class="tasks_info_number">№</div>
+                    <div class="tasks_info_user">ФИО:</div>
+                </div>
+                  <div class="main_container_list_users">
+                      {% for user in users_list %}
+                          <a class="user_list_for_add_task" onclick="handleRowClickUser('{{ user.id }}')">
+                            <div class="FIO_users_main">{{ forloop.counter }}. {{ user.lastname }} {{ user.username }} {{ user.middlename }}</div>
+                          </a>
+                      {% endfor %}
+                  </div>
+                </div>
+                <script>
+                    //Ниже мы получаем id выбранной задачи  которую добавили через вебсокет
+                    document.getElementById('task_websocket').addEventListener('click', function(e) {
+                        if (e.target && e.target.matches('.task-link')) {
+                            const taskID = e.target.querySelector('.task_ID').textContent;
+                            handleTaskClick(taskID);
+                        }
+                        else if (e.target && e.target.closest('.task-link')) {
+                            const taskID = e.target.closest('.task-link').querySelector('.task_ID').textContent;
+                            handleTaskClick(taskID);
+                        }
+                    });
+
+                    //ПОЛУЧЕНИЕ ID Задачи, которая была создана через websocket
+                    let task_id_websocket
+                    function handleTaskClick(taskId_websocket) {
+                        task_id_from_websocket = taskId_websocket
+                        console.log('Выбранная задача WS:', taskId_websocket);
+                    }
+                    //ПОЛУЧЕНИЕ ID Задачи, которая была создана давно и отображается не через webscoket
+                    let task_id_from_websocket;
+                    function handleRowClick(taskId) {
+                        task_id_not_ws = taskId;
+                        console.log("Выбранная задача " + task_id_not_ws);
+
+                        $.ajax({
+                            url: '/get_messages/',
+                            type: 'GET',
+                            data: {
+                                task_id_not_ws: task_id_not_ws,
+                            },
+                            success: function (response) {
+                                var result = response.task_id_not_ws; //id задачи, которую сохранини в ajax запросе
+                                console.log("AJAX " + result); // Проверяем значение result
+                            }
+                        });
+                    }
+
+
+                  //КОД ТУТ ОКРАШИВАЕТ СТРОКУ С ВЫБРАННЫМ ПОЛЬЗОВАТЕЛЕМ И ПОМЕЩАЕТ id в переменную userId_for_user_list ДЛЯ ВЫДАЧИ ЗАДАЧИ
+                  let userId_for_user_list;
+                  function handleRowClickUser(userId) {
+                      userId_for_user_list = userId;
+                  }
+                  document.addEventListener("DOMContentLoaded", function() {
+                    var userRows = document.querySelectorAll("#Users .main_container_list_users .FIO_users_main");
+
+                    userRows.forEach(row => {
+                        row.addEventListener("click", function() {
+                            // Удаляем класс у предыдущей выбранной строки
+                            var selectedRows = document.querySelectorAll("#Users .main_container_list_users .selected_row");
+                            selectedRows.forEach(selectedRow => {
+                                selectedRow.classList.remove("selected_row");
+                            });
+
+                            this.classList.add("selected_row");
+                            var userId = this.getAttribute("data-user-id"); // Получаем атрибут data-user-id для идентификации пользователя
+                            // Теперь userId содержит ID выбранного пользователя, который можно использовать далее в вашем приложении
+                            console.log(userId)
+                        });
+                    });
+                });
+                </script> <!-- КОД ТУТ ОКРАШИВАЕТ СТРОКУ С ВЫБРАННЫМ ПОЛЬЗОВАТЕЛЕМ И ПОМЕЩАЕТ id в переменную userId_for_user_list-->
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datepicker-js/dist/datepicker.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/datepicker-js"></script>
+
+                <textarea id="chat-task-input" class="custom-input" placeholder="Введите текст..."></textarea>
+                <!-----------ВНОСИМ ДАТУ НАЧАЛА И ОКОНЧАНИЯ---------------------------------------------------------------->
+                <div class="input-container" style="display: inline-block; margin-left:10px;">
+                    <div class="date_info_start">Дата начала</div>
+                </div>
+                <div class="input-container" style="display: inline-block; margin-left: 9.0%;">
+                    <div class="date_info_end">Дата окончания</div>
+                </div>
+                <div class="input-container" style="display: inline-block;">
+                    <input type="date" id="datepicker1" class="custom-date-input" placeholder="Выберите дату...">
+                </div>
+                <div class="input-container" style="display: inline-block; margin-left: 9.0%;">
+                    <input type="date" id="datepicker2" class="custom-date-input" placeholder="Выберите другую дату...">
+                </div>
+                <!-----------ВНОСИМ ВРЕМЯ НАЧАЛА И ОКОНЧАНИЯ---------------------------------------------------------------->
+                <div class="input-container" style="display: inline-block;">
+                    <input type="time" id="datepicker3" class="custom-date-input" placeholder="Выберите дату...">
+                </div>
+                <div class="input-container" style="display: inline-block; margin-left: 3.3%;">
+                    <input type="time" id="datepicker4" class="custom-date-input" placeholder="Выберите другую дату...">
+                </div>
+                {{ user_id_main|json_script:"user-id" }}
+                {{ user_id_gave_the_task|json_script:"user-id-gave-the-task" }}
+                {{ user.id|json_script:"user" }}
+                <input id="chat-task-submit" class="button_create_task" type="button" value="Отправить">
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                const roomName = JSON.parse(document.getElementById('user-id').textContent);
+                const user = JSON.parse(document.getElementById('user').textContent);
+                const give_task_id = userId_for_user_list;
+                console.log(give_task_id)
+                        const chatSocket = new WebSocket(
+                            'ws://' + window.location.host + '/ws/main_page_with_tasks/' + 'MAIN' + '/');
+
+                        chatSocket.onmessage = function (e) {
+                            const data = JSON.parse(e.data);
+                            const taskAddSocket = document.getElementById('task_websocket');
+
+                            if (roomName == data.give_task_id_id) {
+                                const taskLink = document.createElement('a');
+                                taskLink.className = 'task-link'
+
+                                const task_ID = document.createElement('div');
+                                task_ID.className = 'task_ID';
+                                task_ID.textContent = data.result;
+                                // Добавляем задачу внутрь элемента task_add_socket
+                                taskLink.appendChild(task_ID);
+                                // Создаем новый элемент для задачи
+                                const newTask = document.createElement('div');
+                                newTask.className = 'task_WEBSCOKET';
+                                newTask.textContent = data.task;
+                                // Добавляем задачу внутрь элемента task_add_sock
+                                taskLink.appendChild(newTask);
+
+                                // Создаем новый элемент со статусом задачи
+                                const status_task = document.createElement('div');
+                                status_task.className = 'status_task_WEBSCOKET';
+                                status_task.textContent = data.status_task;
+                                // Добавляем задачу внутрь элемента task_add_socket
+                                taskLink.appendChild(status_task);
+
+                                taskAddSocket.appendChild(taskLink)
+                            }
+                        };
+                        const messageInputDom = document.querySelector('#chat-task-input');
+                        const task = messageInputDom.value;
+                        document.querySelector('#chat-task-input').focus();
+                        document.querySelector('#chat-task-input').onkeyup = function (e) {
+                            if (e.keyCode === 13) {  // enter, return
+                                document.querySelector('#chat-task-submit').click();
+                            }
+                        };
+                        document.querySelector('#chat-task-submit').onclick = function (e) {
+                        const user_id_gave_the_task = JSON.parse(document.getElementById('user-id-gave-the-task').textContent);
+                        const messageInputDom = document.querySelector('#chat-task-input');
+                        const task = messageInputDom.value;
+
+                        $.ajax({
+                            url: '/get_messages_for_task/',
+                            type: 'GET',
+                            data: {
+                                give_task_id: userId_for_user_list,
+                                task: task,
+                                user_id: roomName,
+                            },
+                            success: function (response) {
+                                var result = response.task_add_id; //id задачи, которую сохранини в ajax запросе
+                                var FIO_result = response.FIO_user; //Сокращенное фио того кто отправил задачу ( Иванов В.П. )
+
+                                console.log(result); // Проверяем значение result
+
+                                // В этом месте переменная result уже имеет значение из AJAX-ответа
+                                chatSocket.send(JSON.stringify({
+                                    'result': result,
+                                    'task': task,
+                                    'give_task_id': userId_for_user_list,
+                                    'user_id_gave_the_task': FIO_result,
+                                    'user_id': roomName,
+                                }));
+                            }
+                        });
+                        messageInputDom.value = '';
+                    };
+                </script>
+          </div>
+      </div>
+      <div class="main_message_block_and_create_message">
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<script> // _________________________СКРИПТ ОТКРЫТИЯ ВКЛАДКИ "Выдали мне"___________________________________________________________________________________
+function openCity(event, cityName) {
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";}
+
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");}
+    if (cityName === 'Tasks_for_me') {
+        document.getElementById('Tasks_for_me').style.display = 'block';}
+        document.getElementById('create_task_modal').style.display = 'none';
+
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+function openCityMain(event, cityName) {
+    if (cityName === 'Task_me') {
+            // Скрываем окно Tasks_for_me
+            document.getElementById('Tasks_for_me').style.display = 'none';
+            // Показываем окно создания задачи
+            document.getElementById('create_task_modal').style.display = 'block';
+        }
+
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+</script>
+{% endblock %}

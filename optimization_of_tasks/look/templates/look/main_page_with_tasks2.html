@@ -1,0 +1,250 @@
+{% extends "look/main.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+  <div class="main_container_appiclation">
+    <header>
+      <div class="the_main_header_of_the_application_is_on_top">
+        <div class="main_container_header">
+            <div class="logo_container">
+                <div class="logo">ADD TASK</div>
+            </div>
+            <div class="main_search_container-block">
+                <input type="text" id="searchInputMain" onkeyup="searchUsers()" placeholder="Главный поиск">
+            </div>
+            <div class="search-results-container" style="display: none;">
+              <ul id="search-results">
+              </ul>
+            </div>
+          <div class="info_for_user_container">
+            <div class="info_FIO">Александр</div>
+            <div class="info_images"><img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_right"></div>
+            <ul class="dropdown_list">
+                <li><a href="{% url 'personal_account' user.lastname|default:'' user.username|default:'' user.middlename|default:'' %}" class="personal_account">Личный кабинет</a></li>
+                <li><a href="#" class="logout_account">Выйти</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </header>
+    <button class="main-menu-button" onclick="toggleMenu()">
+        <img src="/static/look/img/free-icon-burger-menu-9451364.png" alt="Menu" class="menu-icon">
+    </button>
+    <div class="main_menu_container">
+      <a class="tablinks" onclick="openCity(event, 'Tasks_for_me')">
+        <div class="menu_item">
+            <img src="/static/look/img/user.png" class="round-image_main">
+            Выдали мне
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCityMain(event, 'Task_me')">
+        <div class="menu_item">
+            <img src="/static/look/img/add-button.png" class="round-image_main">
+            Создать
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCity(event, '')">
+        <div class="menu_item">
+            <img src="/static/look/img/discussion.png" class="round-image_main">
+            Обсуждение
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCity(event, '')">
+        <div class="menu_item">
+            <img src="/static/look/img/task.png" class="round-image_main">
+            Все проекты
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCity(event, '')">
+        <div class="menu_item">
+            <img src="/static/look/img/people.png" class="round-image_main">
+            Группы
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCity(event, '')">
+        <div class="menu_item">
+            <img src="/static/look/img/info.png" class="round-image_main">
+            Информация
+        </div>
+      </a>
+      <a class="tablinks" onclick="openCity(event, '')">
+        <div class="menu_item">
+            <img src="/static/look/img/logout.png" class="round-image_main">
+            Выйти
+        </div>
+      </a>
+    </div>
+      <div class="MAIN">
+      <div id="Tasks_for_me" class="tabcontent" style="display:none;">
+        <div class="tasks_info_container">
+            <div class="tasks_info_text">Описание:</div>
+            <div class="tasks_info_status">Статус:</div>
+        </div>
+          <div id="tasks-list">
+          {% for task in room_my_task %}
+                <a class="button_task" onclick="handleRowClick('{{ task.id }}')">
+                    <div class="task_text">{{ task.task }} </div>
+                    <div class="status_task">{{ task.status_task }}</div>
+                </a>
+          {% endfor %}
+              <div id="add_task_websocket">
+                  <div id="task_websocket">
+
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div id="create_task_modal">
+          <div class="create_task_modal_container">
+              <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="Введите данные">
+
+              <div id="Users" class="tabcontent_user">
+                <div class="create_tasks_info_container">
+                    <div class="tasks_info_number">№</div>
+                    <div class="tasks_info_user">ФИО:</div>
+                </div>
+                  <div class="main_container_list_users">
+                      {% for user in users_list %}
+                          <a class="user_list_for_add_task" onclick="handleRowClickUser('{{ user.id }}')">
+                            <div class="FIO_users_main">{{ forloop.counter }}. {{ user.lastname }} {{ user.username }} {{ user.middlename }}</div>
+                          </a>
+                      {% endfor %}
+                  </div>
+                </div>
+
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datepicker-js/dist/datepicker.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/datepicker-js"></script>
+
+                <textarea id="chat-task-input" class="custom-input" placeholder="Введите текст..."></textarea>
+
+                <div class="input-container" style="display: inline-block; margin-left:10px;">
+                    <div class="date_info_start_or_end">Дата / время начала</div>
+                    <input type="date" id="datepicker1" class="custom-date-input" placeholder="Выберите дату...">
+                    <input type="time" id="timepicker1" class="custom-date-input" placeholder="">
+
+                    <div class="date_info_start_or_end">Дата / время окончания</div>
+                    <input type="date" id="datepicker2" class="custom-date-input" placeholder="Выберите другую дату...">
+                    <input type="time" id="timepicker2" class="custom-date-input" placeholder="">
+
+                </div>
+                    {{ user_id_main|json_script:"user-id" }}
+                    {{ user_id_gave_the_task|json_script:"user-id-gave-the-task" }}
+                    {{ user.id|json_script:"user" }}
+                    {{ search_tasks|json_script:"search-tasks" }}
+                    {{ search_users|json_script:"search-users" }}
+
+                <input id="chat-task-submit" class="button_create_task" type="button" value="Отправить">
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                <!--Просмотр задач для usera и просмотр сообщений к этим задачам    -->
+                <div class="tasks_container_user">
+                    <div class="tasks_for_user_websocket_container">
+                        <div class="container_main_tasks">
+                            <div class="tasks_in_user_container">
+                                <div id="tasks_in_user_list">
+
+                                </div>
+                            </div>
+                            <div class="tasks_full_dec_container">
+                                <div id="tasks_full_dec">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main_message_block_in_tasks_container">
+                            <div id="message_container_web">
+
+                            </div>
+                            <div class="create_messages_for_task">
+                                <textarea id="chat-task-input-message" class="custom-input" placeholder="Введите текст..."></textarea>
+                                <input id="chat-task-submit-message" class="button_create_task" type="button" value="Отправить">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+      </div>
+        <!-- AJAX Запрос на отображение полных данных задачи на которую мы нажали в центральном меню               -->
+        {{ task_full|json_script:"task-full" }}
+        {{ user_id_gave_the_task_full|json_script:"user-id-gave-the-task-full" }}
+        {{ created_task_full|json_script:"created-task-full" }}
+        {{ end_the_last_number_full|json_script:"end-the-last-number-full" }}
+        {{ end_task_time_new_full|json_script:"end-task-time-new-full" }}
+
+        <!--Сообщения к задаче на котору мы нажали        -->
+        {{ search_message_for_task|json_script:"search-message-for-task"}}
+
+      <div id="main_message_block_and_create_message-block" style="display: none">
+        <div class="full_info_in_task-block">
+            <div class="full_info_in_task">
+                <div class="info_description">
+                    <div class="description_task_id_full">№
+                        <div class="task_id_full"></div>
+                    </div>
+                    <div class="description_status_task_full">Статус:
+                        <div class="dropdown">
+                          <button class="status_task_full">Выпадающий</button>
+                              <div class="dropdown-content">
+                                <div class="status" onclick="setStatus(this)">Не получил</div>
+                                <div class="status" onclick="setStatus(this)">Приступил</div>
+                                <div class="status" onclick="setStatus(this)">Выполнил</div>
+                                <div class="status" onclick="setStatus(this)">Завершено</div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="description_user_id_gave_the_task_full">Выдал:
+                        <div class="user_id_gave_the_task_full"></div>
+                    </div>
+
+                    <div class="description_created_task_full">Дата и время создания:
+                        <div class="created_task_full"></div>
+                    </div>
+                </div>
+                <div class="description_task_full"><div class="description_task">Описание:</div>
+                    <div class="task_full"></div>
+                </div>
+                <div class="main_container_file_time_and_time">
+                    <div class="description_end_task_time_new_full">
+                        <div class="end_task_time_new_full"></div>
+                    </div>
+                    <div class="description_end_the_last_number_full">Завершить:
+                        <div class="end_the_last_number_full"></div>
+                    </div>
+        <!--СДЕЛАТЬ ЕСЛИ ФАЙЛ ЕСТЬ ТО div НИЖЕ ВИДЕН И КНОПКА ЕСТЬ, ЕСЛИ НЕТ, ТО НЕ ВИДЕН                -->
+                    <div class="description_file_for_task">Файл:
+                        <button class="file_for_task">Не прикреплен</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- КЛАСС С СООБЩЕНИЯМИ         -->
+        <div class="message_list_info_in_task-block">
+            <div class="message-info">Сообщения</div>
+            <div class="message_list_info_in_task_container">
+                <div class="main_message_block">
+                    <div id="message_container">
+
+                    </div>
+                </div>
+                <div class="create_message_block">
+                    <div class="create_message_container_main">
+                        <textarea id="chat-message-input" class="custom-input-message" placeholder="Введите текст..."></textarea>
+                        <input id="chat-message-submit" class="button_create_message" type="button" value="Отправить">
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="{% static 'look/java_script/main.js' %}"></script><!--НАШ JAVA SCRIPT-->
+    <script src="{% static 'look/java_script/create_message.js' %}"></script><!--НАШ JAVA SCRIPT-->
+    <script src="{% static 'look/java_script/tasks_for_one_user.js' %}"></script><!--НАШ JAVA SCRIPT-->
+    <script src="{% static 'look/java_script/main_search.js' %}"></script><!--НАШ JAVA SCRIPT-->
+    <script src="{% static 'look/java_script/create_task.js' %}"></script><!--НАШ JAVA SCRIPT-->
+    </div>
+</main>
+
+{% endblock %}

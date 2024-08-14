@@ -1,0 +1,1261 @@
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c7c7c7;
+  border-radius: 3px;
+}
+#create_task_modal {
+    display: none;
+}
+.task_ID {
+    display: none;
+}
+.id_task_tasks_in_user_list {
+    display: none;
+}
+.task_full::-webkit-scrollbar-button {
+  display: none; /* Убираем кнопки скроллбара (стрелки) */
+}
+.task_full::-webkit-scrollbar-button {
+  display: none;
+}
+.dropdown-content {
+    display: none;
+}
+.main_message_block::-webkit-scrollbar-button {
+  display: none; /* Убираем кнопки скроллбара (стрелки) */
+}
+.task_full::-webkit-scrollbar-button {
+  display: none;
+}
+.round-image_main {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+}
+.round-image_right {
+       width: 50px;
+       height: 50px;
+       object-fit: cover;
+       border-radius: 50%; /* Делаем элемент круглым */
+       clip-path: circle(50% at 50% 50%); /* Обрезаем изображение, чтобы оно оставалось круглым */
+}
+/*____________________________________Создаем шапку профиля____________________________________________________*/
+/*________________ПОИСК В ШАПКЕ____________________*/
+.search-results-container {
+    position: absolute;
+    background-color: #fff;
+    border-left: 1px solid #383838;
+    border-right: 1px solid #383838;
+    margin-left: 10%;
+    height: 400px;
+    width: 600px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+    margin-top: 50px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.search-result {
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 100%;
+
+}
+.search-result:hover {
+  background-color: #eee;
+}
+#searchInputMain:focus ~ .search-results-container {
+  display: block;
+}
+
+.search-results-container {
+  display: none;
+}
+#search-results a {
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    display: block; /* Превращаем ссылки в блочные элементы, чтобы рамка вокруг них занимала всю ширину */
+    padding: 5px; /* Добавляем отступ внутри рамки */
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    margin-left: -25px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: black;
+}
+.info_search {
+    margin-left: -15px;
+    font-size: 20px;
+    font-weight: 800;
+    margin-top: 5px;
+}
+.button_move_users, .button_move_task {
+    background-color: #1e6397;
+    border: 1px solid #090909;
+    color: white;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+/*________________ОСНОВА____________________*/
+body {
+    background-color: #ffffff;
+    font-family: 'Jost', sans-serif;
+    color: #1f1f1f;
+}
+/*Обработка фото, которые слева*/
+.logo {
+    color: #262626;
+    font-family: 'Comfortaa', sans-serif;
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 20px;
+    background-color: #ffffff;
+    display: inline-block; /* Делаем элемент блочным, чтобы применились отступы */
+    padding: 5px 10px; /* Добавляем внутренние отступы */
+    border-radius: 5px; /* Задаем полукруглые края для элемента */
+    box-shadow: 2px 2px 4px rgb(38, 38, 38); /* Добавляем тень */
+    font-weight: 900;
+}
+header {
+    display: block;
+    position: fixed;
+    top: 0;
+    height: 50px;
+    width: 100vw;
+    z-index: 33;
+}
+.main_container_header {
+    display: inline-block;
+    background-color: #1982d3;
+    width: 100%;
+    height: 50px;
+    box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.75);
+}
+.info_images {
+    float: right;
+    margin-right: 5%;
+}
+.main_menu_container {
+    margin-top: 200px;
+}
+.info_FIO {
+    margin-right: 20px;
+    color: #262626;
+    font-size: 12px;
+    margin-top: 15px;
+    font-weight: 1000;
+}
+.dropdown_list {
+    margin-top: 50px;
+    display: none; /* Сначала список скрыт */
+    position: absolute; /* Позиционируем абсолютно, чтобы он не влиял на расположение других элементов */
+    background-color: #202023; /* Цвет фона списка */
+    padding: 10px;
+    list-style-type: none;
+    border-radius: 5px;
+}
+.personal_account, .logout_account {
+    color: white;
+}
+.personal_account:hover, .logout_account:hover {
+    color: #b0b0b0;
+}
+
+.info_for_user_container:hover .dropdown_list {
+  display: block; /* При наведении на .info_for_user_container, список становится видимым */
+}
+.info_for_user_container {
+    display: flex;
+    margin-left: auto; /* Отступ слева автоматически растягивает контейнер вправо */
+    margin-right: 5%; /* Отступ справа 5% */
+    float: right;
+}
+.logo_container, .main_search_container-block {
+    float: left;
+    margin-left: 5%;
+}
+.main_search_container-block {
+    margin-top: 25px;
+}
+#searchInputMain {
+    width: 200%;
+    border-radius: 5px;
+    border: 1px solid #1e6397;
+    box-shadow: 0px 20px 18px -11px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 20px 18px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 20px 18px -11px rgba(0,0,0,0.75);
+}
+ul {
+  list-style-type: none; /* Убираем маркеры у всех элементов списка */
+}
+/*____________________________Меню слева__________________________________________________________________*/
+.main_menu_container {
+    position: relative; /* Позволяет задать отступ слева */
+    margin-left: 5%;
+    margin-top: 70px;
+    float: left; /* Делаем main_menu_container плавающим влево */
+    max-width: 37%; /* Задаем ширину, например, 25% от родительского контейнера */
+}
+.main_menu_container .menu_item {
+    padding: 8px 8px; /* Задаем внутренние отступы для элементов меню */
+    color: #090909;
+    text-decoration: none;
+    font-weight: 800;
+}
+a { text-decoration: none; cursor: pointer; }
+a.tablinks, a.button_task {
+    cursor: pointer; /* Устанавливаем свойство cursor на pointer, чтобы сделать курсор как у обычной кнопки */
+}
+/*______________________________________Меню посередине____________________________________________________________________________*/
+.tabcontent {
+    margin-top: 70px;
+    float: left; /* Делаем tabcontent плавающим вправо */
+    max-width: 30%; /* Задаем ширину, например, 75% от родительского контейнера */
+    position: relative; /* Позволяет задать отступ слева */
+    margin-left: 1%;
+    margin-bottom: 10px;
+}
+@media (max-width: 769px) {
+    .tabcontent {
+        min-width: 90%;
+    }
+}
+@media (max-width: 321px) {
+    .tabcontent {
+        min-width: 90%;
+    }
+
+}
+.tasks_info_container {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    background-color: #ffffff; /* Цвет фона */
+    border-radius: 5px; /* Задаем полукруглые края */
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 5px;
+    color: black;
+    border: 1px solid #b4b4b4;
+}
+.tasks_info_text {
+    float: left;
+    font-size: 20px;
+    margin-left: 2%;
+    color: black;
+}
+@media (max-width: 320px) {
+    .tasks_info_text {
+        font-size: 14px;
+    }
+}
+.tasks_info_status {
+    margin-left: auto;
+    float: right;
+    font-size: 20px;
+    margin-right: 6%;
+    color: black;
+}
+@media (max-width: 501px) {
+    .tasks_info_status {
+        display: none;
+    }
+    .main_menu_container {
+        font-size: 20px;
+    }
+}
+.button_task {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    padding: 10px 10px 10px 10px;
+    text-align: left;
+    color: black;
+    border-radius: 5px;
+    border: 1px solid #b4b4b4;
+}
+.task_text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 50%;
+    text-align: left;
+    color: black;
+    font-weight: 800;
+}
+.task_info_block {
+    display: flex;
+    align-items: center;
+}
+.task_info_block > * {
+    margin-right: 10px; /* Добавляем отступ между элементами */
+    align-items: flex-start;
+}
+.end_task_time_new_full {
+    margin-right: 10px;
+}
+.task_text,
+.status_task {
+    white-space: nowrap;
+    align-items: flex-start;
+}
+.status_task {
+    margin-left: 10px;
+        color: black;
+    font-weight: 800;
+}
+@media (max-width: 501px) {
+    .status_task {
+        display: none;
+    }
+}
+#tasks-list {
+    border-radius: 5px; /* Задаем полукруглые края */
+    color: black;
+}
+/*_________ОПИСАНИЕ ЗАДАЧИ__________________________________________________________________*/
+#main_message_block_and_create_message-block {
+    margin-top: 50px;
+    float: right; /* Делаем tabcontent плавающим вправо */
+    width: 50%; /* Задаем ширину, например, 75% от родительского контейнера */
+    position: relative; /* Позволяет задать отступ слева */
+    margin-bottom: 10px;
+
+}
+@media (max-width: 1436px) {
+    #main_message_block_and_create_message-block {
+        width: 60%;
+    }
+
+}
+@media (max-width: 1083px) {
+    .main_container_file_time_and_time {
+      display: flex;
+      gap: 10px;
+    }
+    .description_end_task_time_new_full, .end_task_time_new_full {
+        float: left;
+    }
+    .description_end_the_last_number_full {
+        float: left;
+    }
+    .description_file_for_task, .end_task_time_new_full {
+        float: left;
+    }
+}
+@media (max-width: 1229px) {
+    #main_message_block_and_create_message-block {
+        width: 70%;
+    }
+}
+.MAIN {
+  display: flex;
+}
+.tabcontent, #main_message_block_and_create_message-block {
+    display: inline-block;
+}
+.message_list_info_in_task_container {
+    border-radius: 5px; /* Задаем полукруглые края */
+    background-color: #ffffff; /* Цвет фона */
+    /*box-shadow: 0 0 1.5px rgb(79, 78, 78); !* Добавляем тень *!*/
+    margin-right: 10px;
+    border: 1px solid #b4b4b4;
+}
+.message_list_info_in_task-block {
+    margin-left: 10px;
+}
+.message-info {
+    margin-left: 2%;
+}
+.full_info_in_task-block {
+    margin-top: 20px;
+}
+.full_info_in_task {
+    overflow: hidden;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
+    border: 1px solid #b4b4b4;
+    border-radius: 5px;
+}
+
+.info_description {
+    float: left;
+    width: 100%; /* Ширина блока с информацией о задаче */
+    border-radius: 5px; /* Задаем полукруглые края */
+    background-color: #ffffff; /* Цвет фона */
+    padding: 10px 10px 10px 10px;
+    font-weight: 800;
+    border: 1px solid #8b8b8b;
+}
+
+.description_task_id_full {
+    float: left;
+    width: 10%;
+}
+.description_status_task_full {
+    float: left;
+    width: 20%;
+    /*white-space: nowrap;*/
+}
+.description_user_id_gave_the_task_full {
+    float: left;
+    width: 35%;
+}
+.description_created_task_full {
+    float: right;
+    width: 35%;
+    text-align: right;
+}
+@media (max-width: 835px) {
+    .description_user_id_gave_the_task_full {
+        float: left;
+        width: 40%;
+        text-align: right;
+    }
+    .description_created_task_full {
+    float: right;
+    width: 25%;
+    text-align: right;
+}
+}
+
+@media (max-width: 1167px) {
+    .description_status_task_full {
+    float: left;
+    width: 25%;
+    }
+    .description_user_id_gave_the_task_full {
+    float: left;
+    width: 30%;
+}
+}
+
+.description_task {
+    padding-left: 10px;
+
+}
+.task_full {
+    background-color: #ffffff; /* Цвет фона */
+    padding: 10px 10px 10px 10px;
+    color: black;
+    font-weight: 800;
+    border-radius: 5px; /* Задаем полукруглые края */
+    height: 1%; /* Высота меню */
+
+}
+/* Стиль Выпадающей Кнопки */
+.status_task_full {
+    background-color: #ffffff;
+    color: #262626;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #b4b4b4;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+/* контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+/* Выпадающей контент (по умолчанию скрыт) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #212122;
+    min-width: 160px;
+    box-shadow: 0px 8px 2px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    color: azure;
+}
+/* Ссылки внутри выпадающего списка */
+.dropdown-content div {
+    color: #d0cfcf;
+    padding: 4px 4px;
+    text-decoration: none;
+    display: block;
+}
+/* Изменить цвет выпадающих ссылок при наведении */
+.dropdown-content div:hover {
+    cursor: pointer;
+    background-color: #e0e0e0
+}
+/* Показать выпадающее меню при наведении */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.description_end_the_last_number_full, .end_the_last_number_full {
+    display: inline-block;
+    margin-top: 3px;
+    text-decoration-line: underline;
+    margin-left: 10px;
+}
+
+.description_end_task_time_new_full, .end_task_time_new_full {
+    display: inline-block;
+    float: right;
+    margin-top: 3px;
+    text-decoration-line: underline;
+}
+.description_file_for_task, .file_for_task {
+    display: inline-block;
+    margin-top: 3px;
+}
+.file_for_task {
+    background-color: #ffffff;
+    color: #070707;
+    box-shadow: 0 0 1.5px rgb(58, 58, 58); /* Добавляем тень */
+    border-radius: 5px;
+    white-space: nowrap;
+}
+.description_file_for_task {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.main_message_block {
+    padding: 10px 10px 10px 10px;
+}
+.message, .messageDivFIO {
+  display: inline-block;
+    vertical-align: top;
+}
+.message {
+    width: 84%;
+    color: #131313;
+    background-color: #ffffff; /* Цвет фона */
+    box-shadow: 0 0 1.5px rgb(175, 175, 175); /* Добавляем тень */
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    float: right;
+}
+.messageDivFIO {
+    max-width: 16%;
+    color: #131313;
+    padding-bottom: 10px;
+    float: left;
+}
+.time_created_message {
+    font-size: 10px;
+    color: white;
+    margin-left: 16%;
+    margin-bottom: 10px;
+}
+.main_message_block {
+
+}
+.custom-input-message{
+    width: 97%; /* Ширина по ширине родительского контейнера */
+    height: 70px; /* Фиксированная высота */
+    border: 1px solid #dedede; /* Граница поля */
+    border-radius: 5px; /* Скругление углов */
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+    resize: none;
+    color: #020202;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.custom-input-message::-webkit-scrollbar {
+    width: 5px; /* Ширина полосы прокрутки */
+}
+.custom-input-message::-webkit-scrollbar-track {
+    background: #ffffff; /* Цвет фона полосы прокрутки */
+}
+.custom-input-message::-webkit-scrollbar-thumb {
+    background: #dcdcdc; /* Цвет полоски прокрутки */
+    border-radius: 2px; /* Скругление углов полоски */
+}
+#chat-message-submit {
+    border: 1px solid #c5c5c5; /* Граница поля */
+    background-color: #ffffff;
+    border-radius: 5px; /* Скругление углов */
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #1c1c1c;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.main_message_block {
+  overflow-y: auto; /* Enable vertical scrollbar */
+  height: 180px; /* Set the default height */
+}
+
+/* For Chrome, Safari, and Opera */
+.main_message_block::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height of the scrollbar */
+}
+
+.main_message_block::-webkit-scrollbar-track {
+  background: #bbbbbb; /* Color of the scrollbar track */
+}
+
+.main_message_block::-webkit-scrollbar-thumb {
+  background: #212122; /* Color of the scrollbar thumb */
+  border-radius: 1px; /* Round the corners of the scrollbar thumb */
+}
+
+.main_message_block::-webkit-scrollbar-thumb:hover {
+  background: #212122;
+}
+.create_message_container_main {
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*_________________________________________*/
+.main-menu-button {
+    display: none;
+}
+/*+++++++++++++++++МОДАЛЬНОЕ ОКНО С ОПИСАНИЕМ ЗАДАЧИ И СООБЩЕНИЯМИ++++++++++++++++++++++++++++==*/
+@media screen and (max-width: 769px) {
+    .menu_item:hover {
+        color: #131313;
+        animation: neon-glow 1.5s infinite alternate;
+    }
+
+    #main_message_block_and_create_message-block {
+        margin-top: 10px;
+        display: none;
+        float: left; /* Делаем tabcontent плавающим вправо */
+        width: 100%; /* Задаем ширину, например, 75% от родительского контейнера */
+        position: relative; /* Позволяет задать отступ слева */
+        margin-bottom: 10px;
+  }
+    .task_full {
+        font-size: 20px;
+    }
+    .description_task_id_full {
+        float: left;
+        width: 15%;
+        font-size: 20px;
+    }
+    .description_status_task_full {
+        width: 35%;
+        /*white-space: nowrap;*/
+        font-size: 20px;
+    }
+    .description_user_id_gave_the_task_full {
+        width: 50%;
+        font-size: 18px;
+    }
+    .description_created_task_full {
+        display: inline-block;
+        width: 100%;
+        margin-top: 5px;
+        text-align: left;
+        font-size: 18px;
+    }
+    .created_task_full {
+      display: inline-block;
+    }
+    .main_container_file_time_and_time {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 20px;
+    }
+    .end_the_last_number_full {
+        /*text-decoration: none;*/
+        display: inline-block;
+    }
+    .description_end_task_time_new_full
+     {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+    .description_file_for_task {
+        margin-left: -10px;
+    }
+    .message {
+        font-size: 18px;
+    }
+    #chat-message-submit {
+        font-size: 20px;
+    }
+    #chat-message-input {
+        margin-top: 10px;
+        font-size: 20px;
+        height: 100px;
+        width: 97%;
+    }
+    .main_message_block {
+      height: 300px;
+    }
+    .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    }
+
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f6f6f6;
+    max-width: 100%;
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+}
+
+
+@media screen and (max-width: 426px) {
+    .tabcontent {
+        min-width:70%;
+        margin-left: 90px;
+    }
+    .main-menu-button {
+        display: none;
+        margin-top: 60px;
+        margin-left: 4%;
+        /*background-color: #222224;*/
+        height: 50px;
+        width: 50px;
+        background-color: transparent;
+        border: none; /* Убираем границу кнопки */
+        padding: 0; /* Убираем отступы внутри кнопки */
+    }
+    .menu-icon {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+    }
+    /*Начало выдвигающегося меню*/
+    .main_menu_container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 20px;
+        position: absolute;
+        top: -20px;
+        left: -21px;
+        min-width: 180px;
+        height: 100%;
+        background-color: #ffffff;
+        transform: translateX(-100%);
+        box-shadow: 2px 0px 2px rgb(220, 220, 220);
+    }
+    .menu_item {
+        margin-left: 10px;
+    }
+    .round-image_main {
+        margin-right: 5px;
+    }
+    .main_menu_container.active {
+        transform: translateX(0);
+        z-index: 100;
+    }
+    .menu_item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .menu_item:hover {
+      background-color: #cccccc;
+    }
+    .main-menu-button {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+      }
+    /*Конец блока с меню выдвигающимся*/
+    .tasks_info_text {
+        font-size: 30px;
+    }
+    #tasks-list {
+        font-size: 25px;
+    }
+    #main_message_block_and_create_message-block {
+        /*margin-top: 10%;*/
+        display: none;
+        float: left; /* Делаем tabcontent плавающим вправо */
+        width: 100%; /* Задаем ширину, например, 75% от родительского контейнера */
+        position: relative; /* Позволяет задать отступ слева */
+        margin-bottom: 10px;
+  }
+    #chat-message-input {
+    margin-top: 10px;
+    font-size: 20px;
+    height: 100px;
+    width: 94%;
+    }
+  .modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    max-width: 90%;
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+}
+@media screen and (max-width: 321px) {
+    .tabcontent {
+        margin-left: 70px;
+    }
+    .tasks_info_text {
+        font-size: 30px;
+    }
+    #tasks-list {
+        font-size: 25px;
+    }
+    .main_menu_container {
+        transform: translateX(-120%);
+    }
+    .main_menu_container.active {
+        transform: translateX(0);
+    }
+    #main_message_block_and_create_message-block {
+        /*margin-top: 10%;*/
+        display: none;
+        float: left; /* Делаем tabcontent плавающим вправо */
+        width: 100%; /* Задаем ширину, например, 75% от родительского контейнера */
+        position: relative; /* Позволяет задать отступ слева */
+        margin-bottom: 10px;
+  }
+    #chat-message-input {
+        margin-top: 10px;
+        font-size: 20px;
+        height: 100px;
+        width: 93%;
+        }
+  .modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+  }
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #313131;
+    max-width: 90%;
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+  .description_task_id_full {
+        float: left;
+        width: 40%;
+        font-size: 20px;
+    }
+    .description_status_task_full {
+        width: 60%;
+        /*white-space: nowrap;*/
+        font-size: 20px;
+        float: right;
+        text-align: right;
+    }
+    .description_user_id_gave_the_task_full {
+        margin-top: 10px;
+        width: 100%;
+        font-size: 18px;
+        text-align: left;
+    }
+}
+
+/*__________________Profile______________________________________________________________________________________*/
+.my_account_settings {
+    border-radius: 5px;
+    margin-top: 60px;
+    width: 90%; /* Задаем ширину, например, 75% от родительского контейнера */
+    position: relative; /* Позволяет задать отступ слева */
+    margin-bottom: 10px;
+    color: #262626;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 800;
+    display: flex; /* Размещаем элементы в одну строку */
+    box-shadow: 1px 8px 11px 8px rgba(0,0,0,0.48);
+    -webkit-box-shadow: 1px 8px 11px 8px rgba(0,0,0,0.48);
+    -moz-box-shadow: 1px 8px 11px 8px rgba(0,0,0,0.48);
+}
+.file_and_checkbox {
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+}
+
+#chat-message-input,
+#chat-message-submit {
+    margin: 0 10px;
+
+}
+
+#profile-photo-checkbox {
+    margin-top: 10px;
+}
+.button_create_photo {
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: none;
+    background-color: #ffffff; /* ваш цвет */
+    color: #262626;
+    border: 1px solid #a6a5a5; /* Параметры рамки */
+    width: 120px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+.photo_akk {
+    width: 20%;
+}
+#images_may_photo {
+    /*margin-left: 10px;*/
+
+}
+.images_install {
+}
+.image_photo_main {
+    max-width: 120px;
+    margin-left: 10px;
+    border-radius: 10px; /* Радиус скругления */
+    box-shadow: 0 0 7px #666; /* Параметры тени */
+}
+.images_install,
+.notifications,
+.other_settings {
+    width: 33.3%; /* Задаем равную ширину для всех трех элементов */
+    height: 96%; /* Устанавливаем высоту на 100% от родительского контейнера */
+    padding: 10px; /* Добавляем внутренние отступы */
+    border-radius: 5px;
+    /*box-shadow: 2px 4px 4px 1px rgba(0, 0, 0, 0.5);*/
+    /*    box-shadow: 0px 0px 1px rgb(38, 38, 38); !* Добавляем тень *!*/
+    margin: 10px;
+    border: 1px solid #c0c0c0;
+}
+.images_install_app {
+    display: flex; /* Размещаем элементы в одну строку */
+    border-top: 1px solid #b9b9b9; /* Полоска сверху */
+    border-bottom: 1px solid #b9b9b9; /* Полоска снизу */
+    border-radius: 5px;
+}
+.dates_account {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+    width: 100%;
+}
+.main_info_in_user {
+    padding-top: 10px;
+    margin-left: 10px;
+    width: 69%;
+}
+.division_of_blocks_into_full_name_and_photo {
+    width: 31%; /* Устанавливаем ширину блоков на 50% от родительского контейнера */
+    padding-top: 10px;
+}
+@media screen and (max-width: 2000px) {
+    .main_info_in_user {
+            width: 60%;
+    }
+    .division_of_blocks_into_full_name_and_photo {
+        width: 40%;
+    }
+}
+@media screen and (max-width: 1441px) {
+    .main_info_in_user {
+            width: 55%;
+    }
+    .division_of_blocks_into_full_name_and_photo {
+        width: 45%;
+    }
+}
+@media screen and (max-width: 1600px) {
+    .user_info_description-block {
+    display: flex; /* Размещаем элементы в одну строку */
+    flex-direction: column; /* Размещаем элементы сверху вниз */
+    }
+    .date_create_info_profile {
+        margin-left: 10px;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+    .user_info_description {
+        white-space: nowrap;
+    }
+}
+.username_info_block {
+    margin-right: 10px;
+}
+#username_info, #lastname_info, #middlename_info, #email_info {
+    background-color: #ffffff; /* ваш цвет */
+    /*border: 1px solid #a6a5a5; !* Параметры рамки *!*/
+    border-radius: 5px;
+    border: 1px solid #b9b9b9;
+    width: 70%;
+    margin: 0px 10px 10px 10px;
+    color: #262626;
+    display: inline-block;
+    font-weight: 800;
+}
+
+.file-upload {
+    /*position: relative;*/
+    overflow: hidden;
+    display: inline-block;
+}
+
+.image_create_photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: #ffffff;
+    cursor: inherit;
+    display: none;
+}
+
+.custom-file-upload {
+    margin-top: 10px;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #ffffff; /* ваш цвет */
+    color: #262626;
+    border-radius: 5px;
+    border: 1px solid #b9b9b9; /* Параметры рамки */
+    width: 120px;
+    text-align: center;
+    margin-right: 2px;
+    padding: 2px;
+    margin-left: 10px;
+    font-weight: 800;
+}
+
+.custom-file-upload:hover {
+    background-color: #363636; /* измененный цвет при наведении */
+    color: white;
+}
+.user_info_description-block {
+    display: flex;
+}
+.user_info_description {
+    margin-left: 10px;
+    width: 30%;
+    display: inline-block;
+}
+.images_install_app, .visibility_and_notifications-block, .other_settings_about_you_self-container {
+    flex: 1 1 auto; /* Растягиваем элементы на всю доступную высоту */
+    height: 70%;
+}
+/*__________________БЛОК ВИДИМОСТИ_____________________________________________________*/
+.visibility_and_notifications-block {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border-top: 1px solid #b9b9b9; /* Полоска сверху */
+    border-bottom: 1px solid #b9b9b9; /* Полоска снизу */
+}
+.block_checkbox_visibility_and_notifications-block {
+    display: flex;
+    margin: 10px;
+}
+.checkbox_visibility_and_notifications_main-container {
+    width: 90%;
+}
+.notifications_email_class {
+
+}
+
+/*_____________БЛОК НАСТРОЕК ПРОФИЛЯ_____________________________________________*/
+.other_settings_about_you_self-container {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border-top: 1px solid #b9b9b9; /* Полоска сверху */
+    border-bottom: 1px solid #b9b9b9; /* Полоска снизу */
+}
+.about_you_self_class {
+    width: 100%;
+    padding: 10px;
+    /*border: 1px solid #ccc;*/
+    border-radius: 5px;
+    box-sizing: border-box; /* чтобы внутренний отступ не увеличивал ширину */
+    font-size: 16px; /* размер текста */
+    line-height: 1.5; /* высота строки */
+    /* Добавление любых других стилей, которые вам нужны */
+    background-color: #ffffff; /* ваш цвет */
+    color: #262626;
+    height: 100px;
+    resize: none;
+    font-weight: 800;
+    border: 1px solid #b9b9b9;
+}
+.about_you_self_class::placeholder {
+    color: #171717; /* цвет текста placeholder */
+}
+
+.about_you_self_skills {
+    width: 100%;
+    padding: 10px;
+    /*border: 1px solid #ccc;*/
+    border-radius: 5px;
+    box-sizing: border-box; /* чтобы внутренний отступ не увеличивал ширину */
+    font-size: 16px; /* размер текста */
+    line-height: 1.5; /* высота строки */
+    /* Добавление любых других стилей, которые вам нужны */
+    background-color: #ffffff; /* ваш цвет */
+    color: #262626;
+    height: 100px;
+    resize: none;
+    font-weight: 800;
+    border: 1px solid #b9b9b9;
+}
+.about_you_self_skills::placeholder {
+    color: #171717; /* цвет текста placeholder */
+}
+#char-count {
+    color: #262626;
+    font-weight: 800;
+}
+#about_you_self_skills {
+    width: 100%;
+    border: 1px solid #b9b9b9;
+    height: 100px;
+    border-radius: 5px;
+    font-size: 16px; /* размер текста */
+    line-height: 1.5; /* высота строки */
+    background-color: #ffffff; /* ваш цвет */
+    color: #1a1a1a;
+}
+/*__________________Кнопки сохранить и сбросить настройки в профиле________________________________________*/
+.save_container-main-block {
+    display: flex;
+}
+.button_create_save_and_back {
+    margin-top: 10px;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #ffffff; /* ваш цвет */
+    color: #262626;
+    border-radius: 5px;
+    border: 1px solid #b9b9b9; /* Параметры рамки */
+    text-align: center;
+    margin-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: 800;
+}
+.button_create_save_and_back:hover {
+    background-color: #444444;
+    color: white;
+}
+
+/*___________________________МОДУЛЬ СОЗДАНИЯ ЗАДАЧИ____________________________________________-*/
+#create_task_modal {
+    font-size: 16px;
+    display: none;
+    margin-top: 70px;
+    float: left; /* Делаем tabcontent плавающим вправо */
+    max-width: 30%; /* Задаем ширину, например, 75% от родительского контейнера */
+    position: relative; /* Позволяет задать отступ слева */
+    margin-left: 1%;
+    margin-bottom: 10px;
+    color: black;
+    border-radius: 5px;
+    border: 1px solid #b4b4b4;
+}
+.create_task_modal_container {
+    box-sizing: border-box; /* Учитывает отступы и границы */
+    width: 100%; /* Убедитесь, что контейнер занимает всю ширину родительского элемента */
+}
+.create_tasks_info_container {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    background-color: #ffffff; /* Цвет фона */
+    border-radius: 5px; /* Задаем полукруглые края */
+    padding: 5px 5px 5px 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    border: 1px solid #b4b4b4;
+}
+.tasks_info_user {
+    margin-left: 13px;
+}
+.tasks_info_number, .tasks_info_user {
+    color: #030303;
+    font-size: 15px;
+}
+
+.main_container_list_users::-webkit-scrollbar {
+    width: 10px; /* Ширина полосы прокрутки */
+}
+.main_container_list_users::-webkit-scrollbar-track {
+    background: #b4b4b4; /* Цвет фона полосы прокрутки */
+}
+.main_container_list_users::-webkit-scrollbar-thumb {
+    background: #9a9a9a; /* Цвет полоски прокрутки */
+    border-radius: 5px; /* Скругление углов полоски */
+}
+.main_container_list_users {
+    margin-top: 3px;
+    min-height: 200px; /* Задаем максимальную высоту блока */
+    overflow-y: auto;
+    border: 1px solid #b4b4b4; /* Граница поля */
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px; /* Скругление углов полоски */
+}
+/*ПОЛЕ ПОИСКА*/
+#searchInput {
+    /*margin: 10px 10px 3px 10px;*/
+    padding: 2px 6px; /* Поля вокруг текста */
+    border: 1px solid #b4b4b4;
+    border-radius: 5px; /* Скругленные углы */
+    font-size: 16px; /* Размер шрифта */
+    outline: none; /* Убираем стандартное выделение */
+    color: #2c2c2c;
+    /*box-sizing: border-box; !* Учитывает границы и отступы в ширине *!*/
+    width: calc(100% - 20px); /* Вычитаем общий отступ, чтобы учесть его в ширине */
+    margin: 10px 10px 3px;
+}
+#searchInput:focus {
+    border-color: #1e6397; /* Изменение цвета границы при фокусе */
+    box-shadow: 0 0 2px #1e6397; /* Тень при фокусе */
+}

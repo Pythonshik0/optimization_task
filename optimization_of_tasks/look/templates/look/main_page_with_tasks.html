@@ -1,0 +1,101 @@
+{% extends "look/main.html" %}
+{% load static %}
+
+{% block content %}
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'Tasks_for_me')">Задачи для меня</button>
+  <button class="tablinks" onclick="openCity(event, 'Paris')">Задачи, которые дал я</button>
+  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Обсуждение задач</button>
+</div>
+
+<div id="Tasks_for_me" class="tabcontent">
+    <div class="tasks_info"><h3>Задачи для меня</h3></div>
+        {% for task in tasks_for_me %}
+            <button class="button_task" onclick="handleRowClick('{{ task.id }}')">
+                <div class="task_id">{{ task.id }}</div>
+                <div class="task_text">{{ task.task }}</div>
+                <div class="user_id_gave_the_task">{{ task.user_id_gave_the_task.username }} {{ task.user_id_gave_the_task.lastname }} {{task.user_id_gave_the_task.middlename}}</div>
+                <div class="time_created_task">{{ task.created_task|date:"d.m.Y H:i" }}</div>
+                <div class="end_task_time_new">{{ task.end_task_time_new|date:"d.m.Y H:i" }}</div>
+                <div class="end_the_last_number">{{ task.end_the_last_number|date:"d.m.Y H:i" }}</div>
+                <div class="status_task">{{ task.status_task }}</div>
+            </button>
+        {% endfor %}
+</div>
+    <div class="message_for_tasks">
+        <div id="messages_table">
+
+        </div>
+    </div>
+<div id="Paris" class="tabcontent">
+  <h3>Paris</h3>
+  <p>Paris is the capital of France.</p>
+</div>
+
+<div id="Tokyo" class="tabcontent">
+  <h3>Tokyo</h3>
+  <p>Tokyo is the capital of Japan.</p>
+</div>
+
+<script>
+//________________________________Код окрашивания стоки_____________________________
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the link that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  var tableRows = document.querySelectorAll("#Tasks_for_me .tasks_table_for_me table tr");
+
+  tableRows.forEach(row => {
+    row.addEventListener("click", function() {
+      // Удаляем класс у предыдущей выбранной строки
+      var selectedRows = document.querySelectorAll("#Tasks_for_me .tasks_table_for_me table tr.selected");
+      selectedRows.forEach(selectedRow => {
+        selectedRow.classList.remove("selected");
+      });
+
+      this.classList.add("selected");
+
+      var taskId = this.cells[0].textContent.trim(); // Предполагается, что id находится в первой ячейке (cells[0])
+    });
+  });
+});
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+// Ajax запрос на получение сервером данных с сайта
+function handleRowClick(taskId) {
+  // Отправляем AJAX запрос на сервер, передавая taskId для получения сообщений
+  $.ajax({
+    url: '/get_messages_for_task/',  // URL, который обрабатывает запрос на получение сообщений
+    type: 'GET',
+    data: {task_id: taskId},  // Передача taskId на сервер
+    success: function(response) {
+      // Обновляем HTML с полученными сообщениями
+      $('#messages_table').html(response.messages_html);  // Предположим, что сервер возвращает messages_html
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+</script>
+
+{% endblock %}

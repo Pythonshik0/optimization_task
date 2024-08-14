@@ -1,0 +1,64 @@
+{% extends "look/main.html" %}
+{% load static %}
+
+{% block content %}
+      <div id="main_menu_left_message" style="display: none;">
+        <div class="message_for_tasks">
+            <div id="messages_table">
+                <div class="status_main">
+                    <div class="status-container">
+                        <button class="change_status">Изменить</button>
+                        <select id="status_dropdown">
+                            <option value="ready">Готово</option>
+                            <option value="in_progress">В работе</option>
+                            <option value="not_seen">Еще не видел</option>
+                        </select>
+                    </div>
+                </div>
+            <div class="main_task_text">
+                <div class="task_top_message">Описание задачи: <div id="main_task_text_text"></div></div>
+                <div id="created_task_time_top_message"> </div>
+                <div id="created_task_time_top_message_time"></div>
+            </div>
+                <div id="message_list_container">
+
+
+                </div>
+            </div>
+        </div>
+        <div class="create_tasks_container_main">
+            <div class="form_create_message">
+                <form method="post" id="post-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" id="task_id" name="task_id">
+                    <div class="input_create_message">
+                        <label for="message" class="info__message_create">Создание сообщения</label>
+                        <textarea id="message" name="message"></textarea>
+                        {{ message_form.errors }}
+                    </div>
+                    <div class="container_post">
+                        <label for="file" class="custom-file-upload">
+                            <input type="file" name="file" id="file" accept=".pdf, .docx">
+                        </label>
+                        <span id="file-name-display">Файл не выбран</span>
+                        {{ file_form.errors }}
+                        <button id="button_create_message" type="submit">Создать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+
+<script>
+const fileInput = document.getElementById('file');
+const fileInfo = document.getElementById('file-name-display');
+
+fileInput.addEventListener('change', function() {
+    if (fileInput.files.length > 0) {
+        fileInfo.textContent = fileInput.files[0].name;
+    } else {
+        fileInfo.textContent = 'Файл не выбран';
+    }
+});
+</script>
+{% endblock %}

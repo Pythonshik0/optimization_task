@@ -1,0 +1,137 @@
+{% extends "look/main.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="user-content-section_container_account">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <header>
+          <div class="the_main_header_of_the_application_is_on_top">
+            <div class="main_container_header">
+
+              <div class="logo_container">
+                <div class="logo">ADD TASK</div>
+              </div>
+              <div class="info_for_user_container">
+                <div class="info_FIO">Александр</div>
+                <div class="info_images"><img src="/static/look/img/pexels-mohamed-abdelghaffar-771742.jpg" class="round-image_right"></div>
+                <ul class="dropdown_list">
+                    <li><a href="#" class="logout_account">Выйти</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </header>
+        <button class="main-menu-button" onclick="toggleMenu()">
+            <img src="/static/look/img/free-icon-burger-menu-9451364.png" alt="Menu" class="menu-icon">
+        </button>
+        <!--Настройки аккаунта пользователя        -->
+        <div class="my_account_settings-container">
+            <div class="my_account_settings">
+                <div class="images_install">
+                    <div class="dates_account">Личные данные</div>
+                    <div class="images_install_app">
+                        <div class="division_of_blocks_into_full_name_and_photo">
+                            <div class="photo_akk">
+                                {{ user_id_photo|json_script:"user-id-photo" }}
+                                <div id="images_may_photo">
+                                    {% if main_photo_user == '' %}
+                                    <img src="/media/account_photo/user.png" class="image_photo_main">
+                                    {% else %}
+                                    <img src="{{ main_photo_user }}" class="image_photo_main">
+                                    {% endif %}
+                                </div>
+                                <form id="uploadForm" method="post" class="form_create_message">
+                                    {% csrf_token %}
+                                    <div class="file_and_checkbox">
+                                        <div class="file-upload">
+                                            <input type="file" name="image" id="imageInput" class="image_create_photo">
+                                            <label for="imageInput" class="custom-file-upload">Выберите файл</label>
+                                        </div>
+                                        <input type="checkbox" id="profile-photo-checkbox" class="custom-checkbox">
+                                    </div>
+                                    <button type="button" id="uploadButton" class="button_create_photo">Загрузить</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="main_info_in_user">
+                            <div class="username_info_block">
+                                <div class="user_info_description-block">
+                                    <div class="user_info_description">Имя:</div><input type="text" id="username_info">
+                                </div>
+                                <div class="user_info_description-block">
+                                    <div class="user_info_description">Фамилия:</div><input type="text" id="lastname_info">
+                                </div>
+                                <div class="user_info_description-block">
+                                    <div class="user_info_description">Отчество:</div><input type="text" id="middlename_info">
+                                </div>
+                                <div class="user_info_description-block">
+                                    <div class="user_info_description">Почта:</div><input type="text" id="email_info">
+                                </div>
+                                <div class="user_info_description-block">
+                                    <div class="user_info_description">Дата регистрации:</div><div class="date_create_info_profile">1999.10.04 11:00:00</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="save_container-main-block">
+                        <div class="button-save_container">
+                            <button type="button" id="uploadButtonSave" class="button_create_save_and_back">Сохранить изменения</button>
+                        </div>
+                        <div class="button-save_container_back">
+                            <button type="button" id="uploadButtonBack" class="button_create_save_and_back">Сбросить настройки</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="notifications">
+                    <div class="dates_account">Видимость и уведомления</div>
+                    <div class="visibility_and_notifications-block">
+                        <div class="block_checkbox_visibility_and_notifications-block">
+                            <div class="checkbox_visibility_and_notifications_main-container">Отправлять мне уведомления на почту (задачи)</div>
+                            <input type="checkbox" id="notifications_email_task" class="notifications_email_class">
+                        </div>
+                        <div class="block_checkbox_visibility_and_notifications-block">
+                            <div class="checkbox_visibility_and_notifications_main-container">Отправлять мне уведомления на сайте (задачи)</div>
+                            <input type="checkbox" id="notifications_site_task" class="notifications_email_class">
+                        </div>
+                        <div class="block_checkbox_visibility_and_notifications-block">
+                            <div class="checkbox_visibility_and_notifications_main-container">Отправлять мне уведомления на почту (сообщения)</div>
+                            <input type="checkbox" id="notifications_email_mess" class="notifications_email_class">
+                        </div>
+                        <div class="block_checkbox_visibility_and_notifications-block">
+                            <div class="checkbox_visibility_and_notifications_main-container">Отправлять мне уведомления на сайте (сообщения)</div>
+                            <input type="checkbox" id="notifications_site_mess" class="notifications_email_class">
+                        </div>
+                        <div class="block_checkbox_visibility_and_notifications-block">
+                            <div class="checkbox_visibility_and_notifications_main-container">Отправлять мне уведомления на сайте (@упоминания моего login)</div>
+                            <input type="checkbox" id="notifications_site_mess_@" class="notifications_email_class">
+                        </div>
+                        <div class="block_checkbox_visibility_and_notifications-block">
+                            <div class="checkbox_visibility_and_notifications_main-container">Пользователи видят описание задачи(файлы, описание, сообщения)</div>
+                            <input type="checkbox" id="visibility_task_full" class="notifications_email_class">
+                        </div>
+                    </div>
+                </div>
+                <div class="other_settings">
+                    <div class="dates_account">Настройка профиля</div>
+                    <div class="other_settings_about_you_self-container">
+                        <div class="about_you_self_textarea-block">
+                            <div id="char-count" class="about_you_self_textarea">О себе (249 символов осталось)</div>
+                            <textarea id="about_you_self" class="about_you_self_class" placeholder="Введите текст..."></textarea>
+                        </div>
+                        <div class="about_you_self_textarea-block">
+                            <div class="about_you_self_textarea">Ваши профессиональные навыки</div>
+                            <textarea id="about_you_self_skills" class="about_you_self_skills" placeholder="Пример: #Python #Трудоспособность"></textarea>
+                            <div class="suggestions" id="suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="{% static 'look/java_script/main.js' %}"></script><!--НАШ JAVA SCRIPT-->
+        <script src="{% static 'look/java_script/profile.js' %}"></script><!--НАШ JAVA SCRIPT-->
+    </div>
+{% endblock content %}

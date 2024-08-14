@@ -1,0 +1,724 @@
+/*____________________________________Создаем шапку профиля________________________________________________________________________________*/
+body {
+    background-color: #1a1a1a;
+    font-family: 'Jost', sans-serif;
+}
+/*Ниже обработка фото, которое располагается справа*/
+.round-image_right {
+       width: 50px;
+       height: 50px;
+       object-fit: cover;
+       border-radius: 50%; /* Делаем элемент круглым */
+       clip-path: circle(50% at 50% 50%); /* Обрезаем изображение, чтобы оно оставалось круглым */
+}
+
+/*Обработка фото, которые слева*/
+.logo {
+    color: azure;
+    font-family: 'Comfortaa', sans-serif;
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 20px;
+    background-color: #2a2a2a;
+    display: inline-block; /* Делаем элемент блочным, чтобы применились отступы */
+    padding: 5px 10px; /* Добавляем внутренние отступы */
+    border-radius: 5px; /* Задаем полукруглые края для элемента */
+    box-shadow: 2px 2px 4px rgb(133, 13, 206); /* Добавляем тень */
+    font-weight: 600;
+}
+header {
+    display: block;
+    position: fixed;
+    top: 0;
+    height: 90px;
+    width: 100vw;
+    z-index: 33;
+}
+
+.main_container_header {
+    display: inline-block;
+    background-color: #222223;
+    width: 100%;
+    height: 50px;
+}
+.logo_container {
+    float: left;
+    margin-left: 200px;
+}
+.info_for_user_container {
+    float: right;
+}
+.info_images {
+    float: right;
+    margin-right: 200px;
+}
+.main_menu_container {
+    margin-top: 200px;
+}
+.info_FIO {
+    margin-right: 20px;
+    color: azure;
+    font-size: 12px;
+    margin-top: 15px;
+}
+.info_for_user_container {
+    display: flex;
+    justify-content: center; /* Горизонтальное выравнивание по центру */
+}
+
+.info_centered {
+    display: flex; /* Это нужно для выравнивания двух дочерних элементов в центре */
+    align-items: center; /* Вертикальное выравнивание по центру */
+}
+/*____________________________Меню слева____________________________________________________________________________________________*/
+.main_menu_container {
+    position: relative; /* Позволяет задать отступ слева */
+    margin-left: 200px; /* Отступ 200px слева */
+    margin-top: 70px;
+    width: 200px; /* Ширина меню */
+    height: 400px; /* Высота меню */
+    background-color: #212121; /* Цвет фона */
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(133, 13, 206); /* Добавляем тень */
+}
+
+.main_menu_container .menu_item {
+    padding: 10px 10px; /* Задаем внутренние отступы для элементов меню */
+    color: azure;
+    text-decoration: none;
+}
+.round-image_main {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 50%; /* Делаем элемент круглым */
+    clip-path: circle(50% at 50% 50%); /* Обрезаем изображение, чтобы оно оставалось круглым */
+}
+.menu_item_exit {
+    margin-top: 135px;
+    padding: 10px 10px; /* Задаем внутренние отступы для элементов меню */
+    color: azure;
+    text-decoration: none;
+}
+a { text-decoration: none; }
+a.tablinks, a.button_task {
+    cursor: pointer; /* Устанавливаем свойство cursor на pointer, чтобы сделать курсор как у обычной кнопки */
+    color: azure;
+}
+/*______________________________________Меню посередине____________________________________________________________________________*/
+.tabcontent {
+    position: relative; /* Позволяет задать отступ слева */
+    margin-left: 410px; /* Отступ 200px слева */
+    margin-top: -400px;
+    width: 400px; /* Ширина меню */
+    height: 600px; /* Высота меню */
+    background-color: #212121; /* Цвет фона */
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(133, 13, 206); /* Добавляем тень */
+    font-size: 16px;
+}
+#create_task_modal {
+    background-color: #212121; /* Цвет фона */
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(133, 13, 206); /* Добавляем тень */
+    font-size: 16px;
+    position: relative; /* Позволяет задать отступ слева */
+    margin-left: 410px; /* Отступ 200px слева */
+    margin-top: -400px;
+    width: 400px; /* Ширина меню */
+    height: 600px; /* Высота меню */
+    display: none;
+}
+.tasks-list {
+
+}
+#tasks-list {
+    overflow-y: auto;
+}
+#tasks-list::-webkit-scrollbar {
+    width: 5px; /* Ширина полосы прокрутки */
+}
+
+#tasks-list::-webkit-scrollbar-track {
+    background: #1a1a1b; /* Цвет фона полосы прокрутки */
+}
+#tasks-list::-webkit-scrollbar-thumb {
+    background: #27053b; /* Цвет полоски прокрутки */
+    border-radius: 5px; /* Скругление углов полоски */
+}
+#tasks-list {
+    height: 575px; /* Задаем максимальную высоту блока сообщений */
+    overflow-y: auto;
+}
+.button_task {
+    background-color: #212121; /* Цвет фона */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 0 10px;
+    text-align: left;
+}
+.task_id, .user_id_gave_the_task{
+    order: 0; /* Помещаем task_id в начало строки */
+    margin-right: 10px; /* Добавляем отступ справа */
+    white-space: nowrap;
+    flex-direction: column; /* Устанавливаем направление элементов в колонку */
+    text-align: left;
+}
+.user_id_gave_the_task {
+    min-width: 90px;
+}
+.task_text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 150px;
+    text-align: left;
+}
+.task_info_block {
+    display: flex;
+    align-items: center;
+}
+.task_info_block > * {
+    margin-right: 10px; /* Добавляем отступ между элементами */
+    align-items: flex-start;
+}
+.task_text,
+.status_task {
+    white-space: nowrap;
+    align-items: flex-start;
+}
+.status_task {
+    margin-left: 10px;
+}
+.tasks_info_user {
+    margin-left: 13px;
+}
+.tasks_info_number, .tasks_info_user, .tasks_info_text, .tasks_info_status {
+    color: azure;
+    font-size: 12px;
+}
+.tasks_info_number {
+    margin-left: 0px;
+}
+.tasks_info_text {
+    margin-left: 0px;
+}
+.tasks_info_status {
+    margin-left: 235px;
+}
+.tasks_info_container {
+    padding-top: 5px;
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    margin-left: 10px;
+}
+
+.tasks_info_container div {
+    margin-right: 10px; /* Добавим немного отступа между элементами */
+}
+/*___________________________ЗАДАЧИ ПОЛУЧЕНЫЕ ПРИ СОЗДАНИИ ЧЕРЕЗ WEBSOCKET______________________________________________________________*/
+.task_ID {
+    display: none;
+}
+
+#task-link #task_websocket {
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+}
+#task_websocket .task_WEBSCOKET,
+#task_websocket .status_task_WEBSCOKET {
+    color: azure;
+}
+#task_websocket .task_WEBSCOKET {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+    flex: 0 0 290px;
+    margin-left: 10px;
+}
+#task_websocket .status_task_WEBSCOKET {
+    white-space: nowrap;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.task-link {
+    display: flex;
+    align-items: center;
+}
+
+.task-link .task_WEBSCOKET {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Применяем другой отступ в зависимости от высоты блока #tasks-list */
+
+/*_________________________ОКОШКО СОЗДАНИЯ ЗАДАЧИ И ВЫБОР ПОЛЬЗОВАТЕЛЯ_________________________________________________________________*/
+.info_user {
+    color: azure;
+    margin-left: 10px;
+    padding-top: 10px;
+    font-size: 16px;
+
+}
+.main_container_list_users {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    text-decoration: none;
+}
+.FIO_users_main {
+    text-decoration: none;
+    cursor: pointer;
+    color: azure;
+    padding-left: 10px;
+}
+.selected_row {
+    color: azure;
+    text-shadow: 0 0 5px #850dce, 0 0 10px #850dce, 0 0 15px #67119b, 0 0 20px #8623c5, 0 0 25px #7c1fbb, 0 0 30px #a12de6, 0 0 35px #b739ff;
+    animation: neon-glow 1.5s infinite alternate;
+}
+@keyframes neon-glow {
+    from {
+        text-shadow: 0 0 5px #691497, 0 0 10px #850dce, 0 0 15px #850dce, 0 0 20px #850dce, 0 0 25px #7c1fbb, 0 0 30px #a12de6, 0 0 35px #b739ff;
+    }
+
+    to {
+        text-shadow: 0 0 5px #850dce, 0 0 10px #7421c4, 0 0 15px #7b1dbd, 0 0 20px #7f1ab8, 0 0 25px #8730df, 0 0 30px #9531e8, 0 0 35px #a745ff, 0 0 40px #b151ff;
+    }
+}
+
+.main_container_list_users::-webkit-scrollbar {
+    width: 10px; /* Ширина полосы прокрутки */
+}
+.main_container_list_users::-webkit-scrollbar-track {
+    background: #1a1a1b; /* Цвет фона полосы прокрутки */
+}
+.main_container_list_users::-webkit-scrollbar-thumb {
+    background: #27053b; /* Цвет полоски прокрутки */
+    border-radius: 5px; /* Скругление углов полоски */
+}
+.main_container_list_users {
+    height: 260px; /* Задаем максимальную высоту блока */
+    overflow-y: auto;
+    border: 1px solid #282828; /* Граница поля */
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px; /* Скругление углов полоски */
+}
+/*ПОЛЕ ПОИСКА*/
+#searchInput {
+    padding: 2px 6px; /* Поля вокруг текста */
+    margin: 10px; /* Отступ от других элементов */
+    border: 1px solid #116198; /* Граница поля */
+    border-radius: 5px; /* Скругленные углы */
+    font-size: 16px; /* Размер шрифта */
+    outline: none; /* Убираем стандартное выделение */
+    width: 95%;
+    background-color: #2c2c2c;
+    color: azure;
+
+}
+
+#searchInput:focus {
+    border-color: #850dce; /* Изменение цвета границы при фокусе */
+    box-shadow: 0 0 5px #850dce; /* Тень при фокусе */
+}
+/*ПОЛЕ ПОИСКА КОНЕЦ*/
+/*ПОЛЕ ВВОДА ЗАДАЧИ И дату начала и дату окончания*/
+.custom-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+.custom-date-input {
+    padding: 10px;
+    border: 1px solid #116198; /* Граница поля */
+    border-radius: 5px; /* Скругление углов */
+    background-color: #2c2c2c;
+    color: azure;
+}
+.custom-input {
+    margin-top: 10px;
+    width: 95%; /* Ширина по ширине родительского контейнера */
+    height: 70px; /* Фиксированная высота */
+    padding: 10px;
+    border: 1px solid #116198; /* Граница поля */
+    border-radius: 5px; /* Скругление углов */
+    background-color: #2c2c2c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+    resize: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: azure;
+}
+.custom-input::-webkit-scrollbar {
+    width: 5px; /* Ширина полосы прокрутки */
+}
+.custom-input::-webkit-scrollbar-track {
+    background: #606060; /* Цвет фона полосы прокрутки */
+}
+.custom-input::-webkit-scrollbar-thumb {
+    background: #27053b; /* Цвет полоски прокрутки */
+    border-radius: 2px; /* Скругление углов полоски */
+}
+/*ДАТА СОЗДАНИЯ И ДАЗА ЗАВЕРШЕНИЯ*/
+
+.button_create_task {
+    margin-left: 10px;
+    background-color: #1c032a;
+    border-radius: 5px; /* Скругление углов полоски */
+    color: azure;
+    width: 155px;
+    height: 30px;
+    border: 1px solid #363636; /* Граница поля */
+}
+#datepicker1, #datepicker2 {
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#timepicker1, #timepicker2 {
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 1px solid #333333; /* Граница поля */
+
+}
+.input-container {
+    margin-bottom: 10px;
+}
+.date_info_start_or_end {
+    color: #b7b7b7;
+    margin-left: 5px;
+}
+/*________________БЛОК С ЗАДАЧАМИ ДЛЯ ОПРЕДЕЛЕННЫХ ПОЛЬЗОВАТЕЛЕЙ ПРИ НАЖАТИИ НА НЕГО___________________________________*/
+.tasks_container_user {
+    position: relative; /* Позволяет задать отступ слева */
+    margin-left: 410px; /* Отступ 200px слева */
+    margin-top: -593px;
+    width: 150%; /* Ширина меню */
+    height: 600px; /* Высота меню */
+    background-color: #212121; /* Цвет фона */
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(133, 13, 206); /* Добавляем тень */
+    font-size: 16px;
+    color: azure;
+}
+
+.a-tasks_in_user_list {
+    display: flex;
+    justify-content: space-between; /* Чтобы элементы размещались по бокам контейнера */
+    width: 100%;
+}
+.task_tasks_in_user_list {
+    width: 35%;
+    overflow: hidden;
+    white-space: nowrap; /* Продолжать текст в строке, не переносить на новую строку */
+    text-overflow: ellipsis; /* Добавить многоточие для обрезанного текста */
+}
+.id_task_tasks_in_user_list {
+    display: none;
+}
+.created_task-tasks_in_user_list {
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap; /* Продолжать текст в строке, не переносить на новую строку */
+    text-overflow: ellipsis; /* Добавить многоточие для обрезанного текста */
+}
+
+
+.container_main_tasks {
+    display: flex;
+    justify-content: space-between; /* Чтобы элементы размещались по бокам контейнера */
+    width: 100%;
+}
+
+.tasks_in_user_container {
+    width: 50%;
+    color: azure;
+    border-radius: 3px;
+    box-shadow: 0 0 1.5px rgb(91, 91, 91);
+    padding: 10px;
+    margin: 10px 10px 10px 10px;
+    flex: 1; /* Расширяет элемент, чтобы занять доступное пространство */
+    height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.tasks_full_dec_container {
+    height: 300px;
+    width: 50%;
+    color: azure;
+    border-radius: 3px;
+    box-shadow: 0 0 1.5px rgb(91, 91, 91);
+    padding: 10px;
+    margin: 10px 10px 10px 10px;
+    flex: 1; /* Расширяет элемент, чтобы занять доступное пространство */
+}
+.main_message_block_in_tasks_container {
+    height: 260px;
+    width: 96.5%;
+    color: azure;
+    border-radius: 3px;
+    box-shadow: 0 0 1.5px rgb(91, 91, 91);
+    margin: 10px 10px 10px 10px;
+    flex: 1; /* Расширяет элемент, чтобы занять доступное пространство */
+}
+
+/*____________________ПРАВОЕ ОКНО ДЛЯ ОТОБРАЖЕНИЕ ПОЛНОЙ ИНФОРМАЦИИ О ЗАДАЧИ И СООБЩЕНИЙ_________________________________-*/
+.a-tasks_in_user_list {
+  cursor: pointer; /* Показывать указатель мыши при наведении */
+}
+#main_message_block_and_create_message-block {
+    position: relative; /* Позволяет задать отступ слева */
+    margin-left: 820px; /* Отступ 200px слева */
+    margin-top: -610px;
+    width: 40%; /* Ширина меню */
+    height: 600px; /* Высота меню */
+    background-color: #212121; /* Цвет фона */
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(133, 13, 206); /* Добавляем тень */
+    font-size: 16px;
+    color: azure;
+    display: inline-block;
+}
+
+/* БЛОК: НОМЕР | СТАТУС | ВЫДАЛ | ДАТА И ВРЕМЯ СОЗДАНИЯ | ЗАВЕРШИТЬ */
+.full_info_in_task {
+    overflow: hidden;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
+}
+.info_description {
+    float: left;
+    width: 100%; /* Ширина блока с информацией о задаче */
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(91, 91, 91); /* Добавляем тень */
+    padding: 10px 10px 10px 10px;
+}
+
+.description_task_id_full {
+    float: left;
+    width: 10%;
+}
+.description_status_task_full {
+    float: left;
+    width: 18%;
+}
+.description_user_id_gave_the_task_full {
+    float: left;
+    width: 37%;
+
+}
+.description_created_task_full {
+    float: right;
+    width: 35%;
+    text-align: right;
+}
+/*КОНЕЦ БЛОКА*/
+.description_task_full, description_end_the_last_number_full {
+    padding-top: 70px;
+}
+
+.task_full {
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(91, 91, 91); /* Добавляем тень */
+    height: 100px; /* Высота меню */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding: 10px 10px 10px 10px;
+
+
+}
+.task_full::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Цвет фона дорожки */
+}
+
+.task_full::-webkit-scrollbar-thumb {
+  background-color: #6e0ea8; /* Цвет ползунка */
+  border-radius: 5px; /* Радиус скругления углов ползунка */
+  border: 2px solid #3f3f3f; /* Оформление границ ползунка */
+}
+.task_full::-webkit-scrollbar-button {
+  display: none; /* Убираем кнопки скроллбара (стрелки) */
+}
+.task_full::-webkit-scrollbar {
+  width: 5px;
+}
+
+.task_full::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.task_full::-webkit-scrollbar-thumb {
+  background-color: #6e0ea8;
+  border-radius: 5px;
+  border: 2px solid #3f3f3f;
+}
+
+.task_full::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Для остальных браузеров */
+.task_full {
+    scrollbar-color: #2a2a2a #212122; /* Для Firefox */
+    scrollbar-width: thin; /* Для Firefox */
+
+}
+
+/* Стиль Выпадающей Кнопки */
+.status_task_full {
+    background-color: #543169;
+    color: white;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 1.5px rgb(58, 58, 58); /* Добавляем тень */
+    border-radius: 5px;
+}
+
+/* контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown {
+    position: relative;
+    display: inline-block;
+
+}
+/* Выпадающей контент (по умолчанию скрыт) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #212122;
+    min-width: 160px;
+    box-shadow: 0px 8px 2px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    color: azure;
+}
+/* Ссылки внутри выпадающего списка */
+.dropdown-content div {
+    color: #d0cfcf;
+    padding: 4px 4px;
+    text-decoration: none;
+    display: block;
+}
+/* Изменить цвет выпадающих ссылок при наведении */
+.dropdown-content div:hover {
+    cursor: pointer;
+    background-color: #3b0d57
+}
+/* Показать выпадающее меню при наведении */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.description_end_the_last_number_full, .end_the_last_number_full {
+    display: inline-block;
+    margin-top: 3px;
+    text-decoration-line: underline;
+}
+
+.description_end_task_time_new_full, .end_task_time_new_full {
+    display: inline-block;
+    float: right;
+    margin-top: 3px;
+    text-decoration-line: underline;
+}
+.description_file_for_task, .file_for_task {
+    display: inline-block;
+    margin-top: 3px;
+}
+.file_for_task {
+    background-color: #543169;
+    color: white;
+    box-shadow: 0 0 1.5px rgb(58, 58, 58); /* Добавляем тень */
+    border-radius: 5px;
+}
+.description_file_for_task {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+/*БЛОК К СООБЩЕНИЯМИ*/
+.message-info {
+    margin-left: 20px;
+}
+.main_message_block {
+    border-radius: 3px; /* Задаем полукруглые края */
+    box-shadow: 0 0 1.5px rgb(91, 91, 91); /* Добавляем тень */
+    min-height: 50px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    margin: 0px 20px 0px 20px;
+}
+.main_message_block::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Цвет фона дорожки */
+}
+
+.main_message_block::-webkit-scrollbar-thumb {
+  background-color: #6e0ea8; /* Цвет ползунка */
+  border-radius: 5px; /* Радиус скругления углов ползунка */
+  border: 2px solid #3f3f3f; /* Оформление границ ползунка */
+}
+.main_message_block::-webkit-scrollbar-button {
+  display: none; /* Убираем кнопки скроллбара (стрелки) */
+}
+.main_message_block::-webkit-scrollbar {
+  width: 5px;
+}
+
+.main_message_block::-webkit-scrollbar-track {
+  background: #212122;
+}
+
+.main_message_block::-webkit-scrollbar-thumb {
+  background-color: #6e0ea8;
+  border-radius: 5px;
+  border: 2px solid #3f3f3f;
+}
+
+.task_full::-webkit-scrollbar-button {
+  display: none;
+}
+.custom-input-message {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.custom-input-message{
+    width: 94%; /* Ширина по ширине родительского контейнера */
+    height: 70px; /* Фиксированная высота */
+    padding: 10px;
+    border: 1px solid #116198; /* Граница поля */
+    border-radius: 5px; /* Скругление углов */
+    background-color: #2c2c2c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+    resize: none;
+    margin-left: 20px;
+    margin-right: 10px;
+    color: azure;
+}
+.custom-input-message::-webkit-scrollbar {
+    width: 5px; /* Ширина полосы прокрутки */
+}
+.custom-input-message::-webkit-scrollbar-track {
+    background: #606060; /* Цвет фона полосы прокрутки */
+}
+.custom-input-message::-webkit-scrollbar-thumb {
+    background: #27053b; /* Цвет полоски прокрутки */
+    border-radius: 2px; /* Скругление углов полоски */
+}
+/*___________________Сообщение_______________________*/
+.create_messages_for_task {
+    padding-top: 140px;
+}
+#message_container_web {
+      border: 2px solid #3f3f3f;
+}
